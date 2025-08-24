@@ -1,28 +1,25 @@
-# Gmail Plugin for Dify
+# Dify Gmail Plugin
 
-A comprehensive Gmail integration plugin for Dify that provides essential mail-related actions using OAuth2.0 authentication.
+A comprehensive Gmail integration plugin for Dify that provides essential mail-related actions using OAuth2.0 authentication. This plugin extends beyond basic email reading to offer a complete Gmail management solution.
 
 ## Features
 
-This plugin extends beyond the basic "read emails" functionality to provide a comprehensive set of Gmail management capabilities:
-
-### 📧 **Email Management**
-- **List Messages**: List emails from various Gmail folders (inbox, sent, drafts, spam, trash, custom labels)
+### **Email Management**
+- **List Messages**: Search and read emails from Gmail inbox using Gmail filters and search syntax
 - **Get Message Details**: Retrieve detailed information about specific emails including headers, body, and attachments
 - **Search Messages**: Advanced Gmail search using Gmail's powerful search syntax and operators
 
-### ✉️ **Email Composition & Sending**
+### **Email Composition & Sending**
 - **Send Message**: Send emails directly with recipients, subject, body, CC, BCC, and reply-to
 - **Create Drafts**: Create draft emails that can be edited and sent later
 - **List Drafts**: View and manage draft emails
 - **Send Drafts**: Send previously created draft emails
 
-### 📎 **Attachment Support**
-- **Add Attachments**: Attach files to draft emails (supports files up to 25MB)
+### **Attachment Support**
+- **Add Attachments**: Attach files to existing draft emails
 
-### 🏷️ **Email Organization**
-- **Flag Messages**: Mark emails for follow-up using Gmail's starring system
-- **Advanced Filtering**: Use Gmail search operators for precise email filtering
+### **Email Organization**
+- **Flag Messages**: Mark emails for follow-up using Gmail's starring system (adds/removes 'STARRED' label)
 
 ## Gmail Search Operators
 
@@ -39,34 +36,24 @@ The plugin supports Gmail's powerful search syntax:
 
 ## Setup Instructions
 
-### 1. Google Cloud Console Setup
+**For detailed setup instructions, see [GUIDE.md](GUIDE.md)**
 
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select an existing one
-3. Enable the Gmail API:
-   - Go to "APIs & Services" > "Library"
-   - Search for "Gmail API" and enable it
+### Quick Setup Overview
 
-### 2. Create OAuth 2.0 Credentials
+1. **Install the plugin** from Dify Marketplace
+2. **Get the OAuth callback URL** from the plugin's OAuth Client Settings
+3. **Create Google OAuth credentials** with Gmail API enabled, using the Dify callback URL
+4. **Configure the plugin** with your Client ID and Client Secret
 
-1. Go to "APIs & Services" > "Credentials"
-2. Click "Create Credentials" > "OAuth 2.0 Client IDs"
-3. Choose "Desktop application" as the application type
-4. Download the credentials JSON file
-5. Note your **Client ID** and **Client Secret**
+### Required OAuth Scopes
 
-### 3. Configure the Plugin
-
-1. In Dify, add the Gmail plugin
-2. Enter your **Client ID** and **Client Secret**
-3. Complete the OAuth2.0 authorization flow
-4. The plugin will request the following scopes:
-   - `https://www.googleapis.com/auth/gmail.readonly` - Read emails
-   - `https://www.googleapis.com/auth/gmail.send` - Send emails
-   - `https://www.googleapis.com/auth/gmail.compose` - Create drafts
-   - `https://www.googleapis.com/auth/gmail.modify` - Modify emails
-   - `https://www.googleapis.com/auth/gmail.labels` - Manage labels
-   - `https://www.googleapis.com/auth/gmail.metadata` - Read metadata
+The plugin requests the following Gmail API scopes:
+- `https://www.googleapis.com/auth/gmail.readonly` - Read emails
+- `https://www.googleapis.com/auth/gmail.send` - Send emails
+- `https://www.googleapis.com/auth/gmail.compose` - Create drafts
+- `https://www.googleapis.com/auth/gmail.modify` - Modify emails (labels, flags)
+- `https://www.googleapis.com/auth/gmail.labels` - Manage labels
+- `https://www.googleapis.com/auth/gmail.metadata` - Read metadata
 
 ## Usage Examples
 
@@ -74,8 +61,8 @@ The plugin supports Gmail's powerful search syntax:
 ```yaml
 tool: list_messages
 parameters:
-  folder: inbox
-  limit: 10
+  query: "in:inbox"
+  max_results: 10
   include_body: false
 ```
 
@@ -121,9 +108,9 @@ parameters:
 
 | Tool | Description | Key Parameters |
 |------|-------------|----------------|
-| `list_messages` | List emails from Gmail folders | `folder`, `limit`, `search_query`, `include_body` |
-| `get_message` | Get detailed message information | `message_id`, `include_body`, `include_attachments` |
-| `search_messages` | Advanced Gmail search | `query`, `max_results`, `include_body`, `sort_by` |
+| `list_messages` | List emails from Gmail inbox | `query`, `max_results`, `include_body` |
+| `get_message` | Get detailed message information | `message_id`, `include_body` |
+| `search_messages` | Advanced Gmail search | `query`, `max_results`, `include_body` |
 
 ### Email Composition
 
@@ -131,14 +118,14 @@ parameters:
 |------|-------------|----------------|
 | `send_message` | Send email immediately | `to`, `subject`, `body`, `cc`, `bcc`, `reply_to` |
 | `draft_message` | Create draft email | `to`, `subject`, `body`, `cc`, `bcc`, `reply_to` |
-| `list_drafts` | List draft emails | `limit`, `include_body`, `search_query` |
+| `list_drafts` | List draft emails | `max_results`, `include_body` |
 | `send_draft` | Send draft email | `draft_id` |
 
 ### Advanced Features
 
 | Tool | Description | Key Parameters |
 |------|-------------|----------------|
-| `add_attachment_to_draft` | Add file to draft | `draft_id`, `file_path`, `attachment_name` |
+| `add_attachment_to_draft` | Add file to draft | `draft_id`, `file_path` |
 | `flag_message` | Flag/unflag for follow-up | `message_id`, `action` |
 
 ## Error Handling
@@ -152,9 +139,10 @@ The plugin provides comprehensive error handling:
 
 ## Limitations
 
-- **File Attachments**: Maximum 25MB per file (Gmail API limitation)
+- **File Attachments**: Subject to Gmail API file size limitations
 - **Rate Limits**: Subject to Gmail API rate limits
 - **Authentication**: Requires OAuth2.0 setup and periodic token refresh
+- **Search Queries**: Limited to Gmail's search syntax and operators
 
 ## Troubleshooting
 
@@ -175,10 +163,11 @@ The plugin provides comprehensive error handling:
 
 This plugin is built using the Dify plugin framework and follows best practices:
 
-- **Modular Design**: Each tool is implemented as a separate class
-- **Error Handling**: Comprehensive error handling and user feedback
-- **Progress Updates**: Real-time progress updates for long-running operations
-- **Internationalization**: Multi-language support for labels and descriptions
+- **Modular Design**: Each tool is implemented as a separate class with clear separation of concerns
+- **Error Handling**: Comprehensive error handling with user-friendly error messages
+- **Progress Updates**: Real-time progress updates for operations involving multiple emails
+- **OAuth2.0 Integration**: Secure authentication with automatic token refresh
+- **Gmail API Integration**: Direct integration with Gmail API for optimal performance
 
 ## License
 
