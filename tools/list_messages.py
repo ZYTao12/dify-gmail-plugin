@@ -29,10 +29,11 @@ class ListMessagesTool(Tool):
                 "Accept": "application/json"
             }
             
-            # Search for messages
+            # Search for messages - use full format to support search queries
             search_params = {
                 "q": query,
-                "maxResults": max_results
+                "maxResults": max_results,
+                "format": "full"
             }
             
             search_url = f"https://gmail.googleapis.com/gmail/v1/users/me/messages?{urllib.parse.urlencode(search_params)}"
@@ -62,9 +63,8 @@ class ListMessagesTool(Tool):
                 try:
                     message_id = message["id"]
                     
-                    # Get message details
-                    format_param = "full" if include_body else "metadata"
-                    message_url = f"https://gmail.googleapis.com/gmail/v1/users/me/messages/{message_id}?format={format_param}"
+                    # Get message details - always use full format to support search queries
+                    message_url = f"https://gmail.googleapis.com/gmail/v1/users/me/messages/{message_id}?format=full"
                     
                     message_response = requests.get(message_url, headers=headers, timeout=10)
                     

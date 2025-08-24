@@ -58,7 +58,6 @@ class DifyGmailProvider(ToolProvider):
             "https://www.googleapis.com/auth/gmail.compose",       # Create drafts
             "https://www.googleapis.com/auth/gmail.modify",        # Modify emails (labels, flags)
             "https://www.googleapis.com/auth/gmail.labels",        # Manage labels
-            "https://www.googleapis.com/auth/gmail.metadata"       # Read metadata
         ]
         
         scope = " ".join(scopes)

@@ -53,7 +53,6 @@ The plugin requests the following Gmail API scopes:
 - `https://www.googleapis.com/auth/gmail.compose` - Create drafts
 - `https://www.googleapis.com/auth/gmail.modify` - Modify emails (labels, flags)
 - `https://www.googleapis.com/auth/gmail.labels` - Manage labels
-- `https://www.googleapis.com/auth/gmail.metadata` - Read metadata
 
 ## Usage Examples
 
