@@ -5,7 +5,6 @@ A comprehensive Gmail integration plugin for Dify that provides essential mail-r
 ## Features
 
 ### **Email Management**
-- **List Messages**: Search and read emails from Gmail inbox using Gmail filters and search syntax
 - **Get Message Details**: Retrieve detailed information about specific emails including headers, body, and attachments
 - **Search Messages**: Advanced Gmail search using Gmail's powerful search syntax and operators
 
@@ -58,7 +57,7 @@ The plugin requests the following Gmail API scopes:
 
 ### List Recent Inbox Messages
 ```yaml
-tool: list_messages
+tool: search_messages
 parameters:
   query: "in:inbox"
   max_results: 10
@@ -107,9 +106,8 @@ parameters:
 
 | Tool | Description | Key Parameters |
 |------|-------------|----------------|
-| `list_messages` | List emails from Gmail inbox | `query`, `max_results`, `include_body` |
-| `get_message` | Get detailed message information | `message_id`, `include_body` |
 | `search_messages` | Advanced Gmail search | `query`, `max_results`, `include_body` |
+| `get_message` | Get detailed message information | `message_id`, `include_body` |
 
 ### Email Composition
 
