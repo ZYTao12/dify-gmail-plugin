@@ -87,7 +87,6 @@ oauth_schema:
         pt_BR: "Insira seu token de atualização"
         ja_JP: "リフレッシュトークンを入力してください"
 tools:
-  - tools/list_messages.yaml
   - tools/get_message.yaml
   - tools/send_message.yaml
   - tools/draft_message.yaml
