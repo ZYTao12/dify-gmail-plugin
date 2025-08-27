@@ -30,6 +30,15 @@ parameters:
       ja_JP: "送信する下書きメールの一意の識別子"
     llm_description: "The unique draft ID of the Gmail draft to send. This ID can be obtained from the list_drafts tool or draft_message tool."
     form: llm
+output_schema:
+  type: object
+  properties:
+    message_id:
+      type: string
+      description: "Unique identifier of the sent message"
+    thread_id:
+      type: string
+      description: "Unique identifier of the email thread"
 extra:
   python:
     source: tools/send_draft.py 

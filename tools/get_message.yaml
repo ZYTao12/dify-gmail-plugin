@@ -62,6 +62,22 @@ parameters:
       ja_JP: "添付ファイルに関する詳細情報（名前、サイズ、タイプ）を含めるかどうか"
     llm_description: "Set to true to include detailed attachment information, false to include only basic attachment metadata"
     form: llm
+output_schema:
+  type: object
+  properties:
+    message:
+      type: object
+      description: "Complete message information"
+      properties:
+        id:
+          type: string
+          description: "Unique identifier of the message"
+        thread_id:
+          type: string
+          description: "Unique identifier of the email thread"
+    message_id:
+      type: string
+      description: "The message ID that was requested"
 extra:
   python:
     source: tools/get_message.py 

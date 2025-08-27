@@ -107,6 +107,15 @@ parameters:
       ja_JP: "返信用のメールアドレス（送信者と異なる場合）"
     llm_description: "Email address for replies. If not specified, replies will go to the sender's email address."
     form: llm
+output_schema:
+  type: object
+  properties:
+    message_id:
+      type: string
+      description: "Unique identifier of the sent message"
+    thread_id:
+      type: string
+      description: "Unique identifier of the email thread"
 extra:
   python:
     source: tools/send_message.py 

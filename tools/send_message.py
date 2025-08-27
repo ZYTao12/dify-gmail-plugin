@@ -88,6 +88,11 @@ class SendMessageTool(Tool):
             
             # Return success results
             yield self.create_text_message("Email sent successfully!")
+            
+            # Create specific output variables for workflow referencing
+            yield self.create_variable_message("message_id", message_id)
+            yield self.create_variable_message("thread_id", thread_id)
+            
             yield self.create_json_message({
                 "status": "success",
                 "message_id": message_id,

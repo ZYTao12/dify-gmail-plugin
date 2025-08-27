@@ -59,6 +59,8 @@ class GetMessageTool(Tool):
                 return
             
             # Return results
+            yield self.create_variable_message("message_id", message_id)
+            
             yield self.create_json_message({
                 "message": email_info,
                 "message_id": message_id

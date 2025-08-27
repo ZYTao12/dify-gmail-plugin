@@ -78,6 +78,12 @@ class DraftMessageTool(Tool):
             
             # Return success results
             yield self.create_text_message("Draft email created successfully!")
+            
+            # Create specific output variables for workflow referencing
+            yield self.create_variable_message("draft_id", draft_id)
+            yield self.create_variable_message("message_id", message_id)
+            yield self.create_variable_message("thread_id", thread_id)
+            
             yield self.create_json_message({
                 "status": "success",
                 "draft_id": draft_id,
