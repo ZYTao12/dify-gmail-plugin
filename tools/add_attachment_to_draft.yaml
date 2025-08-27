@@ -63,6 +63,12 @@ parameters:
       ja_JP: "添付ファイルのカスタム名（元のファイル名と異なる場合）"
     llm_description: "Custom name for the attachment. If not specified, the original filename will be used."
     form: llm
+output_schema:
+  type: object
+  properties:
+    draft_id:
+      type: string
+      description: "Unique identifier of the draft that was modified"
 extra:
   python:
     source: tools/add_attachment_to_draft.py 

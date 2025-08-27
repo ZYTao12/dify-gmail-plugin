@@ -134,6 +134,10 @@ class AddAttachmentToDraftTool(Tool):
 
             # Success summary
             yield self.create_text_message(f"Total {len(results)} attachment(s) added successfully to draft {draft_id}.")
+            
+            # Create specific output variable for workflow referencing
+            yield self.create_variable_message("draft_id", draft_id)
+            
             yield self.create_json_message({
                 "status": "success",
                 "draft_id": draft_id,
